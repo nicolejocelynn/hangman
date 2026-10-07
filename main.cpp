@@ -3,12 +3,13 @@
 #include <cstdlib> //srand, rand
 #include <ctime> //time(0)
 #include <string>
+#include <cctype>
 
 using namespace std;
 
 int main(){
 
-    vector<string> lists = {"Apple", "Strawberry", "Coconut", "Durian", "Avocado"};
+    vector<string> lists = {"APPLE", "STRAWBERRY", "COCONUT", "DURIAN", "AVOCADO"};
     int lives = 6;
 
     srand(time(0)); //choose a number based on total of seconds from 1 jan 1970 --> starter number
@@ -44,6 +45,7 @@ int main(){
         cout << "Choose a letter: "; 
         char guess;
         cin >> guess; 
+        guess = toupper(guess); //make letter capital
 
         for (int i = 0; i < word.length(); i++){
             if (guess == word.at(i)){
