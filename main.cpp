@@ -38,6 +38,7 @@ int main(){
 
     //guessing game
     bool found = false; 
+    vector <bool> check_letter(26, false); //isi vektor angka 0 sejumlah 26x
     while (found == false && lives > 0){
 
         bool answer = false;
@@ -47,6 +48,18 @@ int main(){
         cin >> guess; 
         guess = toupper(guess); //make letter capital
 
+        //check if guess is a letter or not
+        if (isalpha(guess) == 0){
+            cout << guess << " is not a letter." << endl;
+            continue;
+        }
+        
+        int repeat = guess - 'A';
+        if (check_letter.at(repeat) == true){
+            cout << "You have guessed this letter before. Try another." << endl;
+            continue;
+        }
+
         for (int i = 0; i < word.length(); i++){
             if (guess == word.at(i)){
                 hidden.at(i) = guess; 
@@ -54,11 +67,14 @@ int main(){
             }
         }
 
-        if (answer == true) 
-        cout << "\nThere is the letter " << guess << " in the word" << endl;
+        if (answer == true) {
+            cout << "\nThere is the letter " << guess << " in the word" << endl;
+            check_letter.at(repeat) = true;
+        }
         else{
             cout << "\nThere is no letter " << guess << " in the word" << endl;
             lives -= 1; 
+            check_letter.at(repeat) = true;
             cout << "You have " << lives << " lives remaining" << endl;
         }
         
